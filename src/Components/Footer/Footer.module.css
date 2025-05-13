@@ -1,0 +1,36 @@
+.footer {
+    width: 100%;
+    background-color: rgb(232, 232, 232);
+}
+
+.footer__logo {
+    width: 80px;
+    margin-right: 30px;
+}
+
+.footer__all {
+    align-items: center;
+    display: flex;
+}
+
+.footer__links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer__link {
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+}
+
+.footer__tgLogo {
+    width: 25px;
+}
+
+.footer__group {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}

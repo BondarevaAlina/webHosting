@@ -1,0 +1,16 @@
+@font-face {
+  font-family: Rubik;
+  src: url(/public/fonts/Rubik.ttf);
+}
+
+:root {
+  font-family: Rubik, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
