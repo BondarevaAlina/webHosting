@@ -12,7 +12,7 @@ function Modal(props) {
             let password = e.target.closest('form').getElementsByClassName(s.modal__input)[1].value
             console.log(email, password);
 
-            const response = await fetch('http://94.131.97.131/api/auth/register', {
+            const response = await fetch(`${props.API_IP}/api/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ function Modal(props) {
             params.append('password', password);
             params.append('scope', scope);
 
-            const response = await fetch('http://94.131.97.131/api/auth/login', {
+            const response = await fetch(`${props.API_IP}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -65,7 +65,7 @@ function Modal(props) {
 
     async function me() {
         try {
-            const response = await fetch('http://94.131.97.131/api/auth/me', {
+            const response = await fetch(`${props.API_IP}/api/auth/me`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {

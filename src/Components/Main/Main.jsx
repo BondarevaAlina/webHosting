@@ -5,7 +5,7 @@ import ModalWindow from '/src/Components/ModalWindow/ModalWindow.jsx'
 import { useOutletContext } from 'react-router-dom';
 
 function Main() {
-    let [modalOpened, setModalOpened] = useOutletContext()
+    let [modalOpened, setModalOpened, API_IP] = useOutletContext()
     console.log(modalOpened);
     
 
@@ -16,7 +16,7 @@ function Main() {
                 <Videos />
                 <Courses />
             </main>
-                <ModalWindow modalOpened={modalOpened} setModalOpened={setModalOpened} />
+                <ModalWindow API_IP={API_IP} modalOpened={modalOpened} setModalOpened={setModalOpened} />
         </>
     )
 }
