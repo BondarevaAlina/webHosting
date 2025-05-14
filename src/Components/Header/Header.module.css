@@ -45,3 +45,7 @@ hr {
     object-position: top;
     border-radius: 100px;
 }
+
+.lowOpacity {
+    opacity: 0.3;
+}

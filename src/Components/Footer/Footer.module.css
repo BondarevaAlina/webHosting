@@ -3,26 +3,58 @@
     background-color: rgb(232, 232, 232);
 }
 
-.footer__logo {
-    width: 80px;
-    margin-right: 30px;
+.footer__linksAll {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
-.footer__all {
-    align-items: center;
-    display: flex;
+.footer__title {
+    font-size: 18px;
+    margin-top: 0;
+    font-weight: 700;
 }
 
 .footer__links {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+}
+
+.footer__link:hover {
+    color: rgb(0, 157, 157);
+}
+
+.footer__groupText:hover {
+    color: rgb(0, 157, 157);
+}
+
+.footer__all {
+    justify-content: center;
+}
+
+.footer__logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+}
+
+.footer__all {
+    position: relative;
+    padding: 20px 0;
+    align-items: center;
+    display: flex;
 }
 
 .footer__link {
     cursor: pointer;
     color: #000;
     text-decoration: none;
+    transition: 0.3s;
 }
 
 .footer__tgLogo {
@@ -30,7 +62,23 @@
 }
 
 .footer__group {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 7px;
+}
+
+.footer__mainGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer__groupText {
+    margin: 0;
+    transition: 0.3s;
+}
+
+.lowOpacity {
+    opacity: 0.3;
 }
