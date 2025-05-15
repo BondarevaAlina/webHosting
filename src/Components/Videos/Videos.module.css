@@ -1,5 +1,6 @@
 .videos {
     display: flex;
+    margin-top: 40px;
     margin-bottom: 40px;
     flex-direction: column;
 }
@@ -15,11 +16,19 @@
     overflow-x: scroll;
 }
 
+.videos__cards::-webkit-scrollbar {
+    background-color: var(--bg-color);
+}
+
+.videos__cards::-webkit-scrollbar-thumb {
+    background-color: var(--text-color);
+}
+
 .videos__card {
     cursor: pointer;
     display: flex;
-    border: 1px solid #000;
-    background-color: #FFF;
+    border: 1px solid var(--text-color);
+    background-color: var(--bg-color);
     flex-direction: column;
     width: 350px;
     height: 255px;
@@ -62,4 +71,39 @@
     color: gray;
     margin-bottom: 5px;
     font-size: 12px;
+}
+
+@media screen and (max-width: 768px) {
+    .videos {
+        margin-top: 20px;
+    }
+
+    .videos__title {
+        margin-top: 0;
+    }
+
+    .videos__card {
+        width: 250px;
+        height: 200px;
+    }
+
+    .videos__cards {
+        margin-bottom: 0;
+    }
+
+    .card__img {
+        max-height: 100px;
+    }
+
+    .card__title {
+        font-size: 14px;
+    }
+
+    .card__name {
+        font-size: 10px;
+    }
+
+    .card__avatar {
+        margin-right: 5px;
+    }
 }

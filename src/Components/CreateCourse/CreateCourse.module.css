@@ -1,0 +1,33 @@
+.newcourse {
+    margin-bottom: 40px;
+}
+
+.newcourse__addBlock {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.newcourse__card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+}
+
+.card__add {
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 80px;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    border: 1px solid var(--text-color);
+}
+
+.card__text {
+    text-align: center;
+    font-weight: 600;
+}

@@ -56,19 +56,22 @@ function Modal(props) {
 
             const data = await response.json();
             console.log('Успешно:', data);
-            
+            const token = await data.access_token
+            localStorage.setItem("token", token)
+            await me(token)
+
         } catch (error) {
             console.error('Ошибка:', error);
         }
-        await me()
     }
 
-    async function me() {
+    async function me(token) {
         try {
             const response = await fetch(`${props.API_IP}/api/auth/me`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Accept': 'application/json',
                 },
             });
@@ -78,17 +81,22 @@ function Modal(props) {
             }
 
             const data = await response.json();
-            console.log('Успешно:', data);
+
+            if (response.ok) {
+                props.setAvatarUrl(data.avatar_url)
+                console.log('Успешно:', data);
+            }
         } catch (error) {
             console.error('Ошибка:', error);
         }
-    
+
     }
 
 
     return (
         <>
-            <div className={`${s.modal} ${!props.modalOpened ? s.dnone : ''}`}>
+        <div className={s.modal}>
+            <div className={`${s.modalWindow} ${!props.modalOpened ? s.dnone : ''}`}>
                 <p className={s.modal__title}>{typeLogin == 'login' ? 'Войти' : 'Регистрация'}</p>
                 <form action="POST">
                     <div className={s.modal__group}>
@@ -107,6 +115,12 @@ function Modal(props) {
                     </div>
                 </form>
             </div>
+                {/* {successLogin && (
+                    <div className={`${s.modal__success} ${!props.modalOpened ? s.dnone : ''}`}>
+                        <p>Вы успешно {typeLogin == 'register' ? 'зарегестрировались' : 'авторизовались'}</p>
+                    </div>
+                )} */}
+        </div>
         </>
     )
 }

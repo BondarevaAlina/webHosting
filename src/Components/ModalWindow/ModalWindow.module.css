@@ -1,4 +1,4 @@
-.modal {
+.modalWindow {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -65,6 +65,19 @@
 .modal__hr {
     margin-right: 0;
 }
+
+/* .modal__success {
+    background: rgb(177, 255, 177);
+    margin-top: 10px;
+    max-width: 375px;
+    border: 1px solid black;
+    padding-left: 20px;
+    width: 100%;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%)
+} */
 
 .dnone {
     display: none;
