@@ -13,8 +13,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -23,8 +23,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -33,8 +33,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -43,8 +43,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -53,8 +53,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -67,8 +67,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -77,8 +77,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -87,8 +87,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -97,8 +97,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -107,8 +107,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
@@ -117,8 +117,8 @@ function Videos() {
                             <div className={s.card__allBlock}>
                                 <img className={s.card__avatar} src="/img/cardavatar.webp" alt="Аватар" />
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Бомбордиро крокодило трипи тропи </p>
-                                    <p className={s.card__name}>Джигурда | 2М. Просмотров | Год назад</p>
+                                    <p className={s.card__title}>ВИДЕО </p>
+                                    <p className={s.card__name}>О ВИДЕО</p>
                                 </div>
                             </div>
                         </article>
