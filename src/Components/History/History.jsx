@@ -13,37 +13,37 @@ function History(props) {
                     </div>
                     <div className={s.history__cards}>
                         <article className={s.history__card}>
-                            <img className={s.card__img} src="https://avatars.mds.yandex.net/i?id=c849ec0d9184c5978879197f65b1c632_l-4334236-images-thumbs&n=13" alt="" />
+                            <img className={s.card__img} src="https://i.pinimg.com/originals/6c/ff/a7/6cffa7dc642c4d27bbb41768580d1a6c.jpg" alt="" />
                             <div className={s.card__allBlock}>
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Соловьёв Лайв | Новый выпуск</p>
+                                    <p className={s.card__title}>НАЗВАНИЕ</p>
                                     <div className={s.card__about}>
-                                        <p className={s.card__name}>Кокаин | 52М. Просмотров</p>
-                                        <p className={s.card__descr}>ЖЕСТКОЕ ОБРАЩЕНИЕ СОЛОВЬЁВА К АМЕРИКАНЦАМ</p>
+                                        <p className={s.card__name}>СТАТИСТИКА ВИДЕО</p>
+                                        <p className={s.card__descr}>ОПИСАНИЕ</p>
                                     </div>
                                 </div>
                             </div>
                         </article>
                         <article className={s.history__card}>
-                            <img className={s.card__img} src="https://avatars.mds.yandex.net/i?id=c849ec0d9184c5978879197f65b1c632_l-4334236-images-thumbs&n=13" alt="" />
+                            <img className={s.card__img} src="https://i.pinimg.com/originals/6c/ff/a7/6cffa7dc642c4d27bbb41768580d1a6c.jpg" alt="" />
                             <div className={s.card__allBlock}>
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Соловьёв Лайв | Новый выпуск</p>
+                                    <p className={s.card__title}>НАЗВАНИЕ</p>
                                     <div className={s.card__about}>
-                                        <p className={s.card__name}>Кокаин | 52М. Просмотров</p>
-                                        <p className={s.card__descr}>ЖЕСТКОЕ ОБРАЩЕНИЕ СОЛОВЬЁВА К АМЕРИКАНЦАМ</p>
+                                        <p className={s.card__name}>СТАТИСТИКА ВИДЕО</p>
+                                        <p className={s.card__descr}>ОПИСАНИЕ</p>
                                     </div>
                                 </div>
                             </div>
                         </article>
                         <article className={s.history__card}>
-                            <img className={s.card__img} src="https://avatars.mds.yandex.net/i?id=c849ec0d9184c5978879197f65b1c632_l-4334236-images-thumbs&n=13" alt="" />
+                            <img className={s.card__img} src="https://i.pinimg.com/originals/6c/ff/a7/6cffa7dc642c4d27bbb41768580d1a6c.jpg" alt="" />
                             <div className={s.card__allBlock}>
                                 <div className={s.card__textBlock}>
-                                    <p className={s.card__title}>Соловьёв Лайв | Новый выпуск</p>
+                                    <p className={s.card__title}>НАЗВАНИЕ</p>
                                     <div className={s.card__about}>
-                                        <p className={s.card__name}>Кокаин | 52М. Просмотров</p>
-                                        <p className={s.card__descr}>ЖЕСТКОЕ ОБРАЩЕНИЕ СОЛОВЬЁВА К АМЕРИКАНЦАМ</p>
+                                        <p className={s.card__name}>СТАТИСТИКА ВИДЕО</p>
+                                        <p className={s.card__descr}>ОПИСАНИЕ</p>
                                     </div>
                                 </div>
                             </div>
