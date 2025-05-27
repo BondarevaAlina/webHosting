@@ -1,7 +1,7 @@
 // CoursePage.jsx
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Container from '/src/Components/Container/Container';
+import Container2 from '/src/Components/Container2/Container2';
 
 function CoursePage() {
     const { id } = useParams();
@@ -43,7 +43,7 @@ function CoursePage() {
     }, [id]);
 
     return (
-        <Container>
+        <Container2>
             {error && (
                 <div style={{ color: 'red' }}>
                     <p>Ошибка: {error}</p>
@@ -70,7 +70,7 @@ function CoursePage() {
             ) : (
                 !error && <p>Загрузка...</p>
             )}
-        </Container>
+        </Container2>
     );
 }
 

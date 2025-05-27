@@ -1,7 +1,7 @@
 // ChannelPage.jsx
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Container from '/src/Components/Container/Container';
+import Container2 from '/src/Components/Container2/Container2';
 
 function ChannelPage() {
     const { id } = useParams();
@@ -97,7 +97,7 @@ function ChannelPage() {
     };
 
     return (
-        <Container>
+        <Container2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             {channel ? (
@@ -151,7 +151,7 @@ function ChannelPage() {
             ) : (
                 <p>Загрузка...</p>
             )}
-        </Container>
+        </Container2>
     );
 }
 
