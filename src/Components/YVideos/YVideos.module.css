@@ -1,0 +1,38 @@
+.yvideos {
+    margin-bottom: 40px;
+}
+
+.videoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.videoCard {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    background-color: white;
+}
+
+.preview {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.videoInfo h3 {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+.videoInfo p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.error {
+    color: red;
+}

@@ -2,6 +2,9 @@ import { createBrowserRouter } from 'react-router-dom'
 import Layout from './Layout'
 import Main from './Components/Main/Main'
 import User from './Components/User/User'
+import ChannelPage from './Components/ChannelPage/ChannelPage'
+import CoursePage from './Components/CoursePage/CoursePage'
+import OKAK from './Components/OKAK/OKAK'
 
 const router = createBrowserRouter([
   {
@@ -10,17 +13,26 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Main/>
+        element: <Main />
       },
       {
         path: '/user',
-        element: <User/>
+        element: <User />
+      },
+      {
+        path: '/channel/:id',
+        element: <ChannelPage />
+      },
+      {
+        path: '/course/:id',
+        element: <CoursePage />
       }
+
     ]
   },
   {
     path: '*',
-    element: <div style={{ padding: '2rem' }}>Ошибка 404: Страница не найдена</div>
+    element: <OKAK />
   }
 ])
 
