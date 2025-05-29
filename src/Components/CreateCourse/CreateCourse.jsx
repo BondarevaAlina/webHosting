@@ -1,4 +1,3 @@
-// CreateCourse.jsx
 import { useNavigate } from 'react-router-dom';
 import s from './CreateCourse.module.css';
 import Container from '/src/Components/Container/Container';
@@ -17,6 +16,7 @@ function CreateCourse(props) {
     const [newChannelName, setNewChannelName] = useState('');
 
     const token = localStorage.getItem('token');
+    const navigate = useNavigate();
 
     const fetchChannels = async () => {
         if (!token) return;
@@ -29,10 +29,15 @@ function CreateCourse(props) {
                 },
             });
             const data = await res.json();
-            setChannels(data);
-            if (data.length > 0) {
-                setChannelId(data[0].id);
-                localStorage.setItem('channel_id', data[0].id);
+            if (Array.isArray(data)) {
+                setChannels(data);
+                if (data.length > 0) {
+                    setChannelId(data[0].id);
+                    localStorage.setItem('channel_id', data[0].id);
+                }
+            } else {
+                console.error('Ожидался массив каналов, получено:', data);
+                setChannels([]);
             }
         } catch (err) {
             console.error('Ошибка загрузки каналов:', err);
@@ -50,8 +55,7 @@ function CreateCourse(props) {
             return;
         }
 
-        // Проверка на существующий ID
-        const exists = channels.find(c => c.id === newChannelName.trim());
+        const exists = Array.isArray(channels) && channels.find(c => c.id === newChannelName.trim());
         if (exists) {
             alert('Канал с таким названием уже существует');
             return;
@@ -80,7 +84,7 @@ function CreateCourse(props) {
         setFile(e.target.files[0]);
     };
 
-    const handlePublish = async (e) => {
+    const handlePublish = async () => {
         const videoName = document.querySelector('input[name="name"]').value;
         const videoDescr = document.querySelector('input[name="descr"]').value;
 
@@ -147,8 +151,6 @@ function CreateCourse(props) {
         }
     };
 
-    let navigate = useNavigate()
-
     return (
         <>
             <section className={s.newcourse}>
@@ -168,9 +170,8 @@ function CreateCourse(props) {
                                 </article>
                             ))
                         ) : (
-                            console.log('Каналов нет')
+                            ''
                         )}
-
                         <article onClick={() => setShowChannelModal(true)} className={s.newcourse__card}>
                             <div className={s.card__add}>+</div>
                             <p className={s.card__text}>Создать канал</p>
@@ -184,7 +185,13 @@ function CreateCourse(props) {
                     <p onClick={() => setShowChannelModal(false)} className={s.createModal__close}>X</p>
                     <div>
                         <label className={s.createModal__text} htmlFor="channelName">Название канала</label>
-                        <input type="text" name="channelName" id="channelName" value={newChannelName} onChange={(e) => setNewChannelName(e.target.value)} />
+                        <input
+                            type="text"
+                            name="channelName"
+                            id="channelName"
+                            value={newChannelName}
+                            onChange={(e) => setNewChannelName(e.target.value)}
+                        />
                     </div>
                     <button className={s.createModal__subm} onClick={createNewChannel}>Создать</button>
                 </div>
@@ -202,7 +209,13 @@ function CreateCourse(props) {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <label className={s.createModal__text} htmlFor="file">Файл</label>
-                    <input className={s.createModal__button} type="file" name="file" accept="video/*" onChange={handleFileChange} />
+                    <input
+                        className={s.createModal__button}
+                        type="file"
+                        name="file"
+                        accept="video/*"
+                        onChange={handleFileChange}
+                    />
                 </div>
                 <button className={s.createModal__subm} onClick={handlePublish} disabled={isPublishing}>
                     {isPublishing ? 'Загрузка...' : 'ОПУБЛИКОВАТЬ'}
@@ -216,6 +229,8 @@ function CreateCourse(props) {
             </div>
 
             <hr style={{ width: '100%', height: '1px', background: 'gray', marginBottom: '40px' }} />
+
+
         </>
     );
 }

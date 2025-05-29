@@ -10,7 +10,6 @@ function ChannelPage() {
     const [courses, setCourses] = useState([]);
     const [error, setError] = useState(null);
     const [newCourseName, setNewCourseName] = useState('');
-    const [newCoursePreview, setNewCoursePreview] = useState(''); // Ссылка на превью
     const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для открытия/закрытия модалки
 
     const token = localStorage.getItem('token');
@@ -57,16 +56,10 @@ function ChannelPage() {
             return;
         }
 
-        if (!newCoursePreview) {
-            alert('Введите ссылку на превью курса');
-            return;
-        }
-
         try {
             const data = {
                 name: newCourseName.trim(),
                 is_public: true,  // или по вашему условию, если нужно
-                preview: newCoursePreview,  // ссылка на превью
             };
 
             // Логируем отправляемые данные для отладки
@@ -88,7 +81,6 @@ function ChannelPage() {
             const newCourse = await res.json();
             setCourses(prev => [...prev, newCourse]);
             setNewCourseName('');
-            setNewCoursePreview('');
             setIsModalOpen(false); // Закрытие модалки
         } catch (err) {
             console.error('Ошибка при создании курса:', err);
@@ -167,13 +159,6 @@ function ChannelPage() {
                                     placeholder="Название курса"
                                     value={newCourseName}
                                     onChange={(e) => setNewCourseName(e.target.value)}
-                                />
-                                {/* Заменили инпут для файла на поле ввода ссылки */}
-                                <input
-                                    type="text"
-                                    placeholder="Ссылка на превью курса"
-                                    value={newCoursePreview}
-                                    onChange={(e) => setNewCoursePreview(e.target.value)}
                                 />
                                 <button onClick={handleCreateCourse}>Создать курс</button>
                                 <button onClick={() => setIsModalOpen(false)}>Закрыть</button>

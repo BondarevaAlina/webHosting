@@ -1,5 +1,102 @@
 .course__preview {
     max-height: 200px;
+    border-radius: 15px;
     object-fit: cover;
+}
+
+.course__aboutAll {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 20px;
+}
+
+.course__preview {
+    cursor: pointer;
+}
+
+.course__previews {
+    width: 100%;
+}
+
+.course__buttons {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    align-items: center;
+}
+
+.course__buttons button:nth-child(3) {
+  grid-column: span 2; /* третья кнопка на всю ширину */
+}
+
+.modalButton {
+    min-height: 52px;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #1a7f64;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.course__mainInfo {
+    padding-left: 20px;
+    border-radius: 15px;
+    width: 50%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.modalButton:hover {
+    background-color: #155d4c;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.course__preview {
+    width: 100%;
+    object-fit: cover;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.closeButton {
+    margin-top: 1rem;
+    background-color: #999;
+    min-height: 55px;
+    width: 100%;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    background-color: #666;
 }
 
