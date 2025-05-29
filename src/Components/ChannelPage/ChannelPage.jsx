@@ -52,49 +52,49 @@ function ChannelPage() {
     }, [id, token]);
 
     const handleCreateCourse = async () => {
-    if (!newCourseName.trim()) {
-        alert('Введите название курса');
-        return;
-    }
-
-    if (!newCoursePreview) {
-        alert('Введите ссылку на превью курса');
-        return;
-    }
-
-    try {
-        const data = {
-            name: newCourseName.trim(),
-            is_public: true,  // или по вашему условию, если нужно
-            preview: newCoursePreview,  // ссылка на превью
-        };
-
-        // Логируем отправляемые данные для отладки
-        console.log('Отправляемые данные:', data);
-
-        const res = await fetch(`/api/channels/${id}/courses`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',  // Устанавливаем тип контента как JSON
-            },
-            body: JSON.stringify(data),  // Преобразуем данные в строку JSON
-        });
-
-        if (!res.ok) {
-            throw new Error('Ошибка создания курса');
+        if (!newCourseName.trim()) {
+            alert('Введите название курса');
+            return;
         }
 
-        const newCourse = await res.json();
-        setCourses(prev => [...prev, newCourse]);
-        setNewCourseName('');
-        setNewCoursePreview('');
-        setIsModalOpen(false); // Закрытие модалки
-    } catch (err) {
-        console.error('Ошибка при создании курса:', err);
-        setError('Не удалось создать курс');
-    }
-};
+        if (!newCoursePreview) {
+            alert('Введите ссылку на превью курса');
+            return;
+        }
+
+        try {
+            const data = {
+                name: newCourseName.trim(),
+                is_public: true,  // или по вашему условию, если нужно
+                preview: newCoursePreview,  // ссылка на превью
+            };
+
+            // Логируем отправляемые данные для отладки
+            console.log('Отправляемые данные:', data);
+
+            const res = await fetch(`/api/channels/${id}/courses`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',  // Устанавливаем тип контента как JSON
+                },
+                body: JSON.stringify(data),  // Преобразуем данные в строку JSON
+            });
+
+            if (!res.ok) {
+                throw new Error('Ошибка создания курса');
+            }
+
+            const newCourse = await res.json();
+            setCourses(prev => [...prev, newCourse]);
+            setNewCourseName('');
+            setNewCoursePreview('');
+            setIsModalOpen(false); // Закрытие модалки
+        } catch (err) {
+            console.error('Ошибка при создании курса:', err);
+            setError('Не удалось создать курс');
+        }
+    };
 
     const handleDeleteCourse = async (courseId) => {
         try {
@@ -129,26 +129,31 @@ function ChannelPage() {
                     )}
 
                     <h2>Курсы</h2>
-                    <ul>
-                        {courses.map(course => (
-                            <li key={course.id} style={{ marginBottom: '1rem' }}>
-                                <strong
-                                    className={s.course__name}
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => navigate(`/course/${course.id}`)}
-                                >
-                                    {course.name}
-                                </strong>
-                                <span> – Студентов: {course.student_count}</span>
-                                <button
-                                    style={{ marginLeft: '1rem', color: 'red' }}
-                                    onClick={() => handleDeleteCourse(course.id)}
-                                >
-                                    Удалить
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                    {Array.isArray(courses) && courses.length > 0 ? (
+                        <ul>
+                            {courses.map(course => (
+                                <li key={course.id} style={{ marginBottom: '1rem' }}>
+                                    <strong
+                                        className={s.course__name}
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => navigate(`/course/${course.id}`)}
+                                    >
+                                        {course.name}
+                                    </strong>
+                                    <span> – Студентов: {course.student_count}</span>
+                                    <button
+                                        style={{ marginLeft: '1rem', color: 'red' }}
+                                        onClick={() => handleDeleteCourse(course.id)}
+                                    >
+                                        Удалить
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>Курсы отсутствуют</p>
+                    )}
+
 
                     <button className={s.course__createButton} onClick={() => setIsModalOpen(true)}>Создать курс</button>
 

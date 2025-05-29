@@ -155,17 +155,22 @@ function CreateCourse(props) {
                 <Container>
                     <h2 className={s.newcourse__title}>Ваши каналы</h2>
                     <div className={s.newcourse__addBlock}>
-                        {channels.map((channel) => (
-                            <article onClick={() => navigate(`/channel/${channel.id}`)} key={channel.id} className={s.newcourse__card}>
-                                <div className={s.card__info}>Канал: {channel.id}</div>
-                                <img
-                                    src={channel.avatar_url || '/img/placeholder.webp'}
-                                    alt="аватар"
-                                    style={{ width: '100%', borderRadius: '8px', marginBottom: '8px' }}
-                                />
-                                <p className={s.card__text}>Подписчиков: {channel.subscribers_count}</p>
-                            </article>
-                        ))}
+                        {Array.isArray(channels) && channels.length > 0 ? (
+                            channels.map((channel) => (
+                                <article onClick={() => navigate(`/channel/${channel.id}`)} key={channel.id} className={s.newcourse__card}>
+                                    <div className={s.card__info}>Канал: {channel.id}</div>
+                                    <img
+                                        src={channel.avatar_url || '/img/placeholder.webp'}
+                                        alt="аватар"
+                                        style={{ width: '100%', borderRadius: '8px', marginBottom: '8px' }}
+                                    />
+                                    <p className={s.card__text}>Подписчиков: {channel.subscribers_count}</p>
+                                </article>
+                            ))
+                        ) : (
+                            console.log('Каналов нет')
+                        )}
+
                         <article onClick={() => setShowChannelModal(true)} className={s.newcourse__card}>
                             <div className={s.card__add}>+</div>
                             <p className={s.card__text}>Создать канал</p>
