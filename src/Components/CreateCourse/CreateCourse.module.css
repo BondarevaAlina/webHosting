@@ -1,5 +1,5 @@
 .newcourse {
-    padding: 2rem 0;
+    padding-bottom: 30px;
 }
 
 .newcourse__addBlock {
@@ -17,6 +17,15 @@
     cursor: pointer;
     transition: 0.2s ease;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.newcourse__title {
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 .newcourse__card:hover {
@@ -55,7 +64,7 @@
     float: right;
     cursor: pointer;
     font-size: 1.2rem;
-    margin-bottom: 1rem;
+    margin: 0;
     color: crimson;
 }
 

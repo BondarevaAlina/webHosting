@@ -11,11 +11,11 @@
 }
 
 .courses__cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 20px;
     width: 100%;
-    gap: 30px;
+    gap: 20px;
 }
 
 .courses__card {
@@ -60,7 +60,12 @@
 
 .card__title {
     margin: 0;
-    font-size: 18px;
+    font-size: 22px;
+}
+
+.card__about {
+    margin: 0;
+
 }
 
 .card__name {
@@ -71,13 +76,23 @@
 
 .card__btn {
     cursor: pointer;
-    width: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 30px;
-    padding: 5px;
-    margin-top: 10px;
+    padding: 15px;
+    margin-top: 0px;
+    margin-left: auto;
     font-size: 16px;
+    color: #fff;
     border: none;
-    background-color: greenyellow;
+    background-color: var(--hf-color);
+}
+
+.card__btn:hover {
+    color: #fff;
+    background-color: var(--hf-color);
 }
 
 @media screen and (max-width: 768px) {

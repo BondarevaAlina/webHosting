@@ -1,6 +1,6 @@
-// ChannelPage.jsx
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import s from './ChannelPage.module.css';
 import Container2 from '/src/Components/Container2/Container2';
 
 function ChannelPage() {
@@ -10,7 +10,8 @@ function ChannelPage() {
     const [courses, setCourses] = useState([]);
     const [error, setError] = useState(null);
     const [newCourseName, setNewCourseName] = useState('');
-    const [newCoursePreview, setNewCoursePreview] = useState('');
+    const [newCoursePreview, setNewCoursePreview] = useState(''); // Ссылка на превью
+    const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для открытия/закрытия модалки
 
     const token = localStorage.getItem('token');
 
@@ -51,34 +52,49 @@ function ChannelPage() {
     }, [id, token]);
 
     const handleCreateCourse = async () => {
-        if (!newCourseName.trim()) {
-            alert('Введите название курса');
-            return;
+    if (!newCourseName.trim()) {
+        alert('Введите название курса');
+        return;
+    }
+
+    if (!newCoursePreview) {
+        alert('Введите ссылку на превью курса');
+        return;
+    }
+
+    try {
+        const data = {
+            name: newCourseName.trim(),
+            is_public: true,  // или по вашему условию, если нужно
+            preview: newCoursePreview,  // ссылка на превью
+        };
+
+        // Логируем отправляемые данные для отладки
+        console.log('Отправляемые данные:', data);
+
+        const res = await fetch(`/api/channels/${id}/courses`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',  // Устанавливаем тип контента как JSON
+            },
+            body: JSON.stringify(data),  // Преобразуем данные в строку JSON
+        });
+
+        if (!res.ok) {
+            throw new Error('Ошибка создания курса');
         }
 
-        try {
-            const res = await fetch(`/api/channels/${id}/courses`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    name: newCourseName.trim(),
-                    is_public: true,
-                    preview: newCoursePreview.trim(),
-                })
-            });
-            if (!res.ok) throw new Error('Ошибка создания курса');
-            const newCourse = await res.json();
-            setCourses(prev => [...prev, newCourse]);
-            setNewCourseName('');
-            setNewCoursePreview('');
-        } catch (err) {
-            console.error(err);
-            setError('Не удалось создать курс');
-        }
-    };
+        const newCourse = await res.json();
+        setCourses(prev => [...prev, newCourse]);
+        setNewCourseName('');
+        setNewCoursePreview('');
+        setIsModalOpen(false); // Закрытие модалки
+    } catch (err) {
+        console.error('Ошибка при создании курса:', err);
+        setError('Не удалось создать курс');
+    }
+};
 
     const handleDeleteCourse = async (courseId) => {
         try {
@@ -117,7 +133,8 @@ function ChannelPage() {
                         {courses.map(course => (
                             <li key={course.id} style={{ marginBottom: '1rem' }}>
                                 <strong
-                                    style={{ cursor: 'pointer', color: 'blue' }}
+                                    className={s.course__name}
+                                    style={{ cursor: 'pointer' }}
                                     onClick={() => navigate(`/course/${course.id}`)}
                                 >
                                     {course.name}
@@ -133,20 +150,31 @@ function ChannelPage() {
                         ))}
                     </ul>
 
-                    <h3>Создать курс</h3>
-                    <input
-                        type="text"
-                        placeholder="Название курса"
-                        value={newCourseName}
-                        onChange={(e) => setNewCourseName(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Ссылка на превью"
-                        value={newCoursePreview}
-                        onChange={(e) => setNewCoursePreview(e.target.value)}
-                    />
-                    <button onClick={handleCreateCourse}>Создать курс</button>
+                    <button className={s.course__createButton} onClick={() => setIsModalOpen(true)}>Создать курс</button>
+
+                    {/* Модальное окно */}
+                    {isModalOpen && (
+                        <div className={s.modal}>
+                            <div className={s.modal__content}>
+                                <h3 className={s.modal__h3}>Создать курс</h3>
+                                <input
+                                    type="text"
+                                    placeholder="Название курса"
+                                    value={newCourseName}
+                                    onChange={(e) => setNewCourseName(e.target.value)}
+                                />
+                                {/* Заменили инпут для файла на поле ввода ссылки */}
+                                <input
+                                    type="text"
+                                    placeholder="Ссылка на превью курса"
+                                    value={newCoursePreview}
+                                    onChange={(e) => setNewCoursePreview(e.target.value)}
+                                />
+                                <button onClick={handleCreateCourse}>Создать курс</button>
+                                <button onClick={() => setIsModalOpen(false)}>Закрыть</button>
+                            </div>
+                        </div>
+                    )}
                 </>
             ) : (
                 <p>Загрузка...</p>

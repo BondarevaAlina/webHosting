@@ -13,6 +13,8 @@ function Courses() {
                             <div className={s.card__allBlock}>
                                 <div className={s.card__textBlock}>
                                     <p className={s.card__title}>КУРС</p>
+                                    <p className={s.card__about}>О курсе</p>
+
                                     <div>
                                         {/* <p className={s.card__name}>Джигурда</p> */}
                                         <button className={s.card__btn}>ПОЛУЧИТЬ</button>
@@ -25,6 +27,8 @@ function Courses() {
                             <div className={s.card__allBlock}>
                                 <div className={s.card__textBlock}>
                                     <p className={s.card__title}>КУРС</p>
+                                    <p className={s.card__about}>О курсе</p>
+
                                     <div>
                                         {/* <p className={s.card__name}>Джигурда</p> */}
                                         <button className={s.card__btn}>ПОЛУЧИТЬ</button>
@@ -37,6 +41,8 @@ function Courses() {
                             <div className={s.card__allBlock}>
                                 <div className={s.card__textBlock}>
                                     <p className={s.card__title}>КУРС</p>
+                                    <p className={s.card__about}>О курсе</p>
+
                                     <div>
                                         {/* <p className={s.card__name}>Джигурда</p> */}
                                         <button className={s.card__btn}>ПОЛУЧИТЬ</button>
@@ -49,6 +55,8 @@ function Courses() {
                             <div className={s.card__allBlock}>
                                 <div className={s.card__textBlock}>
                                     <p className={s.card__title}>КУРС</p>
+                                    <p className={s.card__about}>О курсе</p>
+
                                     <div>
                                         {/* <p className={s.card__name}>Джигурда</p> */}
                                         <button className={s.card__btn}>ПОЛУЧИТЬ</button>
@@ -61,6 +69,8 @@ function Courses() {
                             <div className={s.card__allBlock}>
                                 <div className={s.card__textBlock}>
                                     <p className={s.card__title}>КУРС</p>
+                                    <p className={s.card__about}>О курсе</p>
+
                                     <div>
                                         {/* <p className={s.card__name}>Джигурда</p> */}
                                         <button className={s.card__btn}>ПОЛУЧИТЬ</button>

@@ -1,10 +1,12 @@
 // CoursePage.jsx
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Container2 from '/src/Components/Container2/Container2';
+import s from './CoursePage.module.css'
 
 function CoursePage() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [course, setCourse] = useState(null);
     const [error, setError] = useState(null);
     const [rawResponse, setRawResponse] = useState('');
@@ -42,8 +44,30 @@ function CoursePage() {
         fetchCourse();
     }, [id]);
 
+    const handleDelete = async () => {
+        if (!course) return;
+        const token = localStorage.getItem('token');
+
+        try {
+            const res = await fetch(`/api/channels/${course.channel_id}/courses/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!res.ok) throw new Error('Ошибка при удалении курса');
+
+            alert('Курс удалён');
+            navigate('/user');
+        } catch (err) {
+            console.error('Ошибка удаления:', err);
+            setError('Не удалось удалить курс');
+        }
+    };
+
     return (
-        <Container2>
+        <>
             {error && (
                 <div style={{ color: 'red' }}>
                     <p>Ошибка: {error}</p>
@@ -55,22 +79,30 @@ function CoursePage() {
             )}
             {course ? (
                 <>
-                    <h1>{course.name}</h1>
-                    <p>Канал: {course.channel_id}</p>
-                    <p>Студентов: {course.student_count}</p>
-                    <p>Создан: {new Date(course.created_at).toLocaleString()}</p>
                     {course.preview && (
                         <img
+                            className={s.course__preview}
                             src={course.preview}
                             alt="Превью курса"
-                            style={{ width: '300px', borderRadius: '12px' }}
                         />
                     )}
+                    <Container2>
+                        <h1>{course.name}</h1>
+                        <p>Канал: {course.channel_id}</p>
+                        <p>Студентов: {course.student_count}</p>
+                        <p>Создан: {new Date(course.created_at).toLocaleString()}</p>
+                        <button
+                            style={{ marginTop: '1rem', color: 'white', background: 'red', padding: '0.5rem 1rem', border: 'none', borderRadius: '8px' }}
+                            onClick={handleDelete}
+                        >
+                            Удалить курс
+                        </button>
+                    </Container2>
                 </>
             ) : (
                 !error && <p>Загрузка...</p>
             )}
-        </Container2>
+        </>
     );
 }
 

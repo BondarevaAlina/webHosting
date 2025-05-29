@@ -153,7 +153,7 @@ function CreateCourse(props) {
         <>
             <section className={s.newcourse}>
                 <Container>
-                    <h2>Ваши каналы</h2>
+                    <h2 className={s.newcourse__title}>Ваши каналы</h2>
                     <div className={s.newcourse__addBlock}>
                         {channels.map((channel) => (
                             <article onClick={() => navigate(`/channel/${channel.id}`)} key={channel.id} className={s.newcourse__card}>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import s from './ModalWindow.module.css'
+import { useNavigate } from 'react-router-dom';
 
 function Modal(props) {
     let [typeLogin, setTypeLogin] = useState('login')
+    let nav = useNavigate()
 
     async function register(e) {
         e.preventDefault();
@@ -84,6 +86,8 @@ function Modal(props) {
 
             if (response.ok) {
                 props.setAvatarUrl(data.avatar_url)
+                props.setModalOpened(false)
+                nav('/user')
                 console.log('Успешно:', data);
             }
         } catch (error) {
@@ -95,32 +99,33 @@ function Modal(props) {
 
     return (
         <>
-        <div className={s.modal}>
-            <div className={`${s.modalWindow} ${!props.modalOpened ? s.dnone : ''}`}>
-                <p className={s.modal__title}>{typeLogin == 'login' ? 'Войти' : 'Регистрация'}</p>
-                <form action="POST">
-                    <div className={s.modal__group}>
-                        <label className={s.modal__label} htmlFor="mail">Почта</label>
-                        <input className={s.modal__input} type="email" name="mail" id="mail" />
-                    </div>
-                    <div className={s.modal__group}>
-                        <label className={s.modal__label} htmlFor="tel">Пароль</label>
-                        <input className={s.modal__input} type="tel" name="tel" id="tel" />
-                    </div>
-                    <button onClick={(e) => typeLogin == 'register' ? (register(e), e.preventDefault()) : (login(e), e.preventDefault())} className={s.modal__btn} type="submit">{typeLogin == 'login' ? 'Войти' : 'Зарегистрироваться'}</button>
-                    <div className={s.modal__more}>
-                        <p onClick={() => setTypeLogin(typeLogin == 'login' ? 'register' : 'login')} className={s.modal__link}>{typeLogin == 'login' ? 'Регистрация' : 'Есть аккаунт?'}</p>
-                        <hr className={s.modal__hr} />
-                        <p className={s.modal__link}>Забыли пароль?</p>
-                    </div>
-                </form>
-            </div>
+            <div className={s.modal}>
+                <div className={`${s.modalWindow} ${!props.modalOpened ? s.dnone : ''}`}>
+                    <p onClick={() => props.setModalOpened(false)} className={s.modal__close}>x</p>
+                    <p className={s.modal__title}>{typeLogin == 'login' ? 'Войти' : 'Регистрация'}</p>
+                    <form action="POST">
+                        <div className={s.modal__group}>
+                            <label className={s.modal__label} htmlFor="mail">Почта</label>
+                            <input className={s.modal__input} type="email" name="mail" id="mail" />
+                        </div>
+                        <div className={s.modal__group}>
+                            <label className={s.modal__label} htmlFor="tel">Пароль</label>
+                            <input className={s.modal__input} type="tel" name="tel" id="tel" />
+                        </div>
+                        <button onClick={(e) => typeLogin == 'register' ? (register(e), e.preventDefault()) : (login(e), e.preventDefault())} className={s.modal__btn} type="submit">{typeLogin == 'login' ? 'Войти' : 'Зарегистрироваться'}</button>
+                        <div className={s.modal__more}>
+                            <p onClick={() => setTypeLogin(typeLogin == 'login' ? 'register' : 'login')} className={s.modal__link}>{typeLogin == 'login' ? 'Регистрация' : 'Есть аккаунт?'}</p>
+                            <hr className={s.modal__hr} />
+                            <p className={s.modal__link}>Забыли пароль?</p>
+                        </div>
+                    </form>
+                </div>
                 {/* {successLogin && (
                     <div className={`${s.modal__success} ${!props.modalOpened ? s.dnone : ''}`}>
                         <p>Вы успешно {typeLogin == 'register' ? 'зарегестрировались' : 'авторизовались'}</p>
                     </div>
                 )} */}
-        </div>
+            </div>
         </>
     )
 }

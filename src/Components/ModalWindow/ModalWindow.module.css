@@ -12,6 +12,17 @@
     border: 1px solid var(--text-color);
 }
 
+
+.modal__close {
+    cursor: pointer;
+    color: red;
+    font-size: 26px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: 0;
+}
+
 .modal__group {
     display: flex;
     flex-direction: column;
