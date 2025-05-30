@@ -218,10 +218,10 @@ function CoursePage() {
                 <Container2>
                     <div className={s.course__aboutAll}>
                         <div className={s.course__mainInfo}>
-                            <h1>{course.name}</h1>
-                            <p>Канал: {course.channel_id}</p>
-                            <p>Студентов: {course.student_count}</p>
-                            <p>Создан: {new Date(course.created_at).toLocaleString()}</p>
+                            <h1 className={s.mainColors}>{course.name}</h1>
+                            <p className={s.mainColors}>Канал: {course.channel_id}</p>
+                            <p className={s.mainColors}>Студентов: {course.student_count}</p>
+                            <p className={s.mainColors}>Создан: {new Date(course.created_at).toLocaleString()}</p>
                             <button
                                 style={{
                                     marginTop: '1rem',
@@ -329,7 +329,12 @@ function CoursePage() {
             ) : (
                 !error && <p>Загрузка...</p>
             )}
-            <CourseStructure courseId={id} token={token} />
+
+            {
+                course && (
+                <CourseStructure channelId={course.channel_id} courseId={id} token={token} />)
+
+            }
         </>
     );
 }
