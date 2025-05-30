@@ -1,0 +1,69 @@
+/* Playlists.module.css */
+
+.container {
+    max-height: 80vh;
+    /* при желании ограничим высоту окна */
+    overflow-y: auto;
+    /* вертикальный скролл при переполнении */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    width: fit-content;
+    margin-bottom: 20px;
+}
+
+.container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.heading {
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.thumb {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.info {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    font-size: 18px;
+    margin: 0 0 4px;
+    color: #111;
+}
+
+.count {
+    font-size: 14px;
+    margin: 0;
+    color: #555;
+}

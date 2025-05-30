@@ -11,7 +11,7 @@ function CoursePage() {
     const [error, setError] = useState(null);
     const [rawResponse, setRawResponse] = useState('');
     const [isUploading, setIsUploading] = useState(false);
-    const [showModal, setShowModal] = useState(null); // 'senior' | 'junior' | 'students'
+    const [showModal, setShowModal] = useState(null); // 'senior' | 'junior' | 'student'
     const [targetUserId, setTargetUserId] = useState('');
     const [permissionStatus, setPermissionStatus] = useState('');
     const [expirationDate, setExpirationDate] = useState('');
@@ -160,48 +160,50 @@ function CoursePage() {
     };
 
     const handleGrantPermission = async () => {
-        if (!targetUserId || !course) {
+        if (!targetUserId.trim() || !course) {
             setPermissionStatus('Введите user_id');
             return;
         }
 
-        try {
-            let url = `/api/courses/${course.id}/permissions?user_id=${encodeURIComponent(targetUserId)}`;
-            if (expirationDate) {
-                url += `&expiration_date=${encodeURIComponent(expirationDate)}`;
-            }
+        // определяем роль по открытому модальному окну
+        const role = showModal === 'senior' ? 'senior' : showModal === 'junior' ? 'junior' : 'student';
 
-            const res = await fetch(url, {
+        const payload = {
+            user_id: targetUserId.trim(),
+            role,                                           // ← если бекенд ждёт роль
+            ...(expirationDate && {
+                expiration_date: new Date(expirationDate).toISOString()
+            })
+        };
+
+        try {
+            const res = await fetch(`/api/courses/${course.id}/permissions`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                }
+                },
+                body: JSON.stringify(payload)                 // ← теперь тело есть
             });
 
             const text = await res.text();
 
             if (!res.ok) {
-                let errData;
-                try {
-                    errData = JSON.parse(text);
-                } catch {
-                    throw new Error(`Ошибка: ${text || res.status}`);
-                }
-
-                console.error('Ошибка:', errData);
-                setPermissionStatus(`Ошибка: ${errData.detail?.[0]?.msg || res.status}`);
+                const err = JSON.parse(text);
+                setPermissionStatus(`Ошибка: ${err.detail?.[0]?.msg || res.status}`);
                 return;
             }
 
             const data = JSON.parse(text);
             setPermissionStatus(`Успешно назначено. ID: ${data.user_id}`);
-        } catch (error) {
-            console.error('Ошибка запроса:', error);
+        } catch (e) {
+            console.error('Ошибка запроса:', e);
             setPermissionStatus('Сетевая ошибка или ошибка сервера');
         }
     };
+
 
     return (
         <>
@@ -267,7 +269,7 @@ function CoursePage() {
                                 <button onClick={() => setShowModal('junior')} className={s.modalButton}>
                                     Назначить младшего модератора
                                 </button>
-                                <button onClick={() => setShowModal('students')} className={s.modalButton}>
+                                <button onClick={() => setShowModal('student')} className={s.modalButton}>
                                     Управление студентами
                                 </button>
                             </div>
@@ -283,7 +285,7 @@ function CoursePage() {
                                     {showModal === 'students' && 'Управление студентами'}
                                 </h2>
 
-                                {(showModal === 'senior' || showModal === 'junior') ? (
+                                {(showModal === 'senior' || showModal === 'junior' || showModal === 'student') ? (
                                     <>
                                         {permissionStatus && <p>{permissionStatus}</p>}
 
@@ -295,12 +297,15 @@ function CoursePage() {
                                             className={s.modalInput}
                                         />
 
-                                        <input
-                                            type="datetime-local"
-                                            value={expirationDate}
-                                            onChange={(e) => setExpirationDate(e.target.value)}
-                                            className={s.modalInput}
-                                        />
+                                        <div className={s.modalEXP}>
+                                            <p>Срок истечения прав:</p>
+                                            <input
+                                                type="datetime-local"
+                                                value={expirationDate}
+                                                onChange={(e) => setExpirationDate(e.target.value)}
+                                                className={s.modalInput}
+                                            />
+                                        </div>
 
                                         <button className={s.modalButton} onClick={handleGrantPermission}>
                                             Назначить
@@ -332,7 +337,7 @@ function CoursePage() {
 
             {
                 course && (
-                <CourseStructure channelId={course.channel_id} courseId={id} token={token} />)
+                    <CourseStructure channelId={course.channel_id} courseId={id} token={token} />)
 
             }
         </>
