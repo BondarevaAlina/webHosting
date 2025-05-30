@@ -62,23 +62,35 @@ export default function CourseStructure({ courseId, token: propToken }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, token]);
 
-  /* generic PATCH helper */
-  const patchStructure = async (updated) => {
-    const resp = await fetch(structureURL, {
-      method: "PATCH",
-      headers: makeHeaders(),
-      cache: "no-cache",
-      body: JSON.stringify({ structure: updated }),
-    });
+  // замени postOrPatchStructure на это:
+  const postOrPatchStructure = async (updated) => {
+    const tryMethod = async (method) => {
+      const resp = await fetch(structureURL, {
+        method,
+        headers: makeHeaders(),
+        cache: "no-cache",
+        body: JSON.stringify({ structure: updated }),
+      });
+      return resp;
+    };
+
+    let resp = await tryMethod("PATCH");
+
+    if (resp.status === 404 || resp.status === 422 || resp.status === 409) {
+      resp = await tryMethod("POST");
+    }
+
     if (resp.ok || resp.status === 201) {
       const fresh = await fetchStructure();
       setStructure(fresh);
       return true;
     }
+
     const text = await resp.text().catch(() => "");
-    setError(`PATCH ${resp.status}${text ? `: ${text}` : ""}`);
+    setError(`${resp.status}: ${text}`);
     return false;
   };
+
 
   /* ----------------------------------------------------
    *  MODULE ACTIONS
@@ -103,7 +115,7 @@ export default function CourseStructure({ courseId, token: propToken }) {
         lesson: null,
       };
       const updated = { content: [...current.content, newItem] };
-      await patchStructure(updated);
+      await postOrPatchStructure(updated);
     } finally {
       postingRef.current = false;
       setIsPosting(false);
@@ -116,14 +128,14 @@ export default function CourseStructure({ courseId, token: propToken }) {
     if (!newName || newName === currentName) return;
     const current = await fetchStructure();
     current.content[idx].module.name = newName;
-    await patchStructure({ content: current.content });
+    await postOrPatchStructure({ content: current.content });
   };
 
   const deleteModule = async (idx) => {
     if (!window.confirm("Удалить модуль?")) return;
     const current = await fetchStructure();
     current.content.splice(idx, 1);
-    await patchStructure({ content: current.content });
+    await postOrPatchStructure({ content: current.content });
   };
 
   /* ----------------------------------------------------
@@ -136,7 +148,7 @@ export default function CourseStructure({ courseId, token: propToken }) {
     const subs = [...(current.content[moduleIndex].module.submodules || [])];
     subs.push({ name: subName, lessons: [] });
     current.content[moduleIndex].module.submodules = subs;
-    await patchStructure({ content: current.content });
+    await postOrPatchStructure({ content: current.content });
   };
 
   const editSubmoduleName = async (moduleIndex, subIndex) => {
@@ -146,7 +158,7 @@ export default function CourseStructure({ courseId, token: propToken }) {
     if (!newName || newName === currentName) return;
     const current = await fetchStructure();
     current.content[moduleIndex].module.submodules[subIndex].name = newName;
-    await patchStructure({ content: current.content });
+    await postOrPatchStructure({ content: current.content });
   };
 
   /* ----------------------------------------------------
@@ -159,7 +171,7 @@ export default function CourseStructure({ courseId, token: propToken }) {
     const lessons = current.content[moduleIndex].module.submodules[subIndex].lessons;
     const num = lessons.length + 1;
     lessons.push({ name: `Урок ${num}: ${title}`, homework: false, content: [] });
-    await patchStructure({ content: current.content });
+    await postOrPatchStructure({ content: current.content });
   };
 
   const uploadVideoToLesson = async (moduleIndex, subIndex, lessonIndex) => {
@@ -199,7 +211,7 @@ export default function CourseStructure({ courseId, token: propToken }) {
         const lesson = current.content[moduleIndex].module.submodules[subIndex].lessons[lessonIndex];
         lesson.content = lesson.content.filter((c) => !isURL(c)); // remove old video URL if any
         lesson.content.unshift(public_url);
-        await patchStructure({ content: current.content });
+        await postOrPatchStructure({ content: current.content });
       } catch (err) {
         console.error(err);
         alert("Ошибка загрузки видео");
@@ -219,7 +231,7 @@ export default function CourseStructure({ courseId, token: propToken }) {
 
     lesson.homework = true; // всегда булево
     lesson.content.push(hwText);
-    await patchStructure({ content: current.content });
+    await postOrPatchStructure({ content: current.content });
   };
 
   /* ----------------------------------------------------
