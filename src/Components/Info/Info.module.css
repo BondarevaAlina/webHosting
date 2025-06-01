@@ -67,7 +67,7 @@
     height: 60px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 650px) {
     .info {
         margin-top: 20px;
     }
@@ -90,5 +90,18 @@
     .info__editAvatar {
         left: 27px;
         width: 18px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .info__info {
+        flex-direction: column;
+    }
+
+    .info__editAvatar {
+        left: 50%;
+        margin-left: 0 !important;
+        transform: translateX(-50%);
+        top: 65px;
     }
 }

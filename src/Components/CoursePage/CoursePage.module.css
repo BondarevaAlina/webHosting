@@ -45,7 +45,7 @@
 }
 
 .course__mainInfo {
-    padding-left: 20px;
+    padding: 20px;
     border-radius: 15px;
     width: 50%;
     height: 100%;
@@ -101,6 +101,7 @@
 }
 
 .mainColors {
+    margin-top: 0;
     color: #000;
 }
 
@@ -110,4 +111,19 @@
     justify-content: center;
     gap: 10px;
     margin-bottom: 10px;
+}
+
+@media screen and (max-width: 800px) {
+     .course__aboutAll {
+        flex-direction: column;
+     }
+
+     .mainColors {
+        margin-top: 0;
+     }
+
+     .course__mainInfo {
+        padding: 20px;
+        width: 100%;
+     }
 }

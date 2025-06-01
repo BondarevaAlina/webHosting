@@ -3,7 +3,7 @@
 .container {
     max-height: 80vh;
     /* при желании ограничим высоту окна */
-    overflow-y: auto;
+    /* overflow-y: auto; */
     /* вертикальный скролл при переполнении */
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
@@ -11,9 +11,9 @@
     margin-bottom: 20px;
 }
 
-.container::-webkit-scrollbar {
+/* .container::-webkit-scrollbar {
     width: 6px;
-}
+} */
 
 .container::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2);

@@ -29,3 +29,13 @@
         display: none;
     }
 }
+
+@media screen and (max-width: 440px) {
+    .footer__all {
+        flex-direction: column;
+    }
+
+    .footer__mail {
+        margin-top: 0;
+    }
+}

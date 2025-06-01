@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./CourseStructure.module.css";
 import Container2 from "/src/Components/Container2/Container2";
 
@@ -59,10 +59,8 @@ export default function CourseStructure({ courseId, token: propToken }) {
   useEffect(() => {
     fetchChannelId();
     fetchStructure().then(setStructure);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, token]);
 
-  // замени postOrPatchStructure на это:
   const postOrPatchStructure = async (updated) => {
     const tryMethod = async (method) => {
       const resp = await fetch(structureURL, {
@@ -76,7 +74,7 @@ export default function CourseStructure({ courseId, token: propToken }) {
 
     let resp = await tryMethod("PATCH");
 
-    if (resp.status === 404 || resp.status === 422 || resp.status === 409) {
+    if (resp.status === 404 || resp.status === 422 || resp.status === 409 || resp.status === 500) {
       resp = await tryMethod("POST");
     }
 
@@ -266,132 +264,134 @@ export default function CourseStructure({ courseId, token: propToken }) {
    *  RENDER
    * --------------------------------------------------*/
   return (
-    <Container2>
-      <div className={styles.container}>
-        {error && <div className={styles.error}>{error}</div>}
+    <section style={{width: '100%'}}>
+      <Container2>
+        <div className={styles.container}>
+          {error && <div className={styles.error}>{error}</div>}
 
-        {/* New module row */}
-        <div className={styles.newModuleRow}>
-          <button className={styles.button} onClick={addModule} disabled={isPosting}>
-            + Модуль
-          </button>
-        </div>
+          {/* New module row */}
+          <div className={styles.newModuleRow}>
+            <button className={styles.button} onClick={addModule} disabled={isPosting}>
+              + Модуль
+            </button>
+          </div>
 
-        {structure.content.length === 0 ? (
-          <p className={styles.empty}>Нет модулей.</p>
-        ) : (
-          <ul className={styles.list}>
-            {structure.content.map((item, mIdx) => {
-              const module = item.module;
-              if (!module) return null;
-              const open = expandedModules[module.name];
-              return (
-                <li key={mIdx} className={styles.moduleItem}>
-                  <div className={styles.moduleHeader}>
-                    <button className={styles.toggleButton} onClick={() => toggleModule(module.name)}>
-                      {open ? "–" : "+"}
-                    </button>
-                    <span className={styles.moduleName}>{module.name}</span>
-                    <button className={styles.editButton} onClick={() => editModuleName(mIdx)}>
-                      ✎
-                    </button>
-                    <button className={styles.deleteButton} onClick={() => deleteModule(mIdx)}>
-                      ×
-                    </button>
-                  </div>
+          {structure.content.length === 0 ? (
+            <p className={styles.empty}>Нет модулей.</p>
+          ) : (
+            <ul className={styles.list}>
+              {structure.content.map((item, mIdx) => {
+                const module = item.module;
+                if (!module) return null;
+                const open = expandedModules[module.name];
+                return (
+                  <li key={mIdx} className={styles.moduleItem}>
+                    <div className={styles.moduleHeader}>
+                      <button className={styles.toggleButton} onClick={() => toggleModule(module.name)}>
+                        {open ? "–" : "+"}
+                      </button>
+                      <span className={styles.moduleName}>{module.name}</span>
+                      <button className={styles.editButton} onClick={() => editModuleName(mIdx)}>
+                        ✎
+                      </button>
+                      <button className={styles.deleteButton} onClick={() => deleteModule(mIdx)}>
+                        ×
+                      </button>
+                    </div>
 
-                  {open && (
-                    <ul className={styles.submoduleList}>
-                      {module.submodules.map((sub, sIdx) => {
-                        const subOpen = expandedSubmodules[module.name]?.[sub.name];
-                        return (
-                          <li key={sIdx} className={styles.submoduleItem}>
-                            <div className={styles.submoduleHeader}>
-                              <button
-                                className={styles.toggleButton}
-                                onClick={() => toggleSubmodule(module.name, sub.name)}
-                              >
-                                {subOpen ? "–" : "+"}
-                              </button>
-                              <span className={styles.submoduleName}>{sub.name}</span>
-                              <button className={styles.editButton} onClick={() => editSubmoduleName(mIdx, sIdx)}>
-                                ✎
-                              </button>
-                            </div>
-                            {subOpen && (
-                              <>
-                                <ul className={styles.lessonList}>
-                                  {sub.lessons.map((lesson, lIdx) => {
-                                    const lessonOpen = expandedLessons[module.name]?.[sub.name]?.[lesson.name];
-                                    const videoURL = getVideoURL(lesson.content);
-                                    const hwList = getHomeworkList(lesson.content);
-                                    return (
-                                      <li key={lIdx} className={styles.lessonItem}>
-                                        <div className={styles.lessonHeader}>
-                                          <button
-                                            className={styles.toggleButton}
-                                            onClick={() => toggleLesson(module.name, sub.name, lesson.name)}
-                                          >
-                                            {lessonOpen ? "–" : "+"}
-                                          </button>
-                                          {videoURL ? (
-                                            <a href={videoURL} target="_blank" rel="noopener noreferrer">
-                                              {lesson.name}
-                                            </a>
-                                          ) : (
-                                            <span>{lesson.name}</span>
-                                          )}
-                                          <button
-                                            className={styles.lessonButton}
-                                            onClick={() => uploadVideoToLesson(mIdx, sIdx, lIdx)}
-                                          >
-                                            ⬆︎ Видео
-                                          </button>
-                                        </div>
-                                        {lessonOpen && (
-                                          <div className={styles.homeworkSection}>
-                                            {lesson.homework && hwList.length > 0 ? (
-                                              <ul className={styles.homeworkList}>
-                                                {hwList.map((hw, hIdx) => (
-                                                  <li key={hIdx} className={styles.homeworkItem}>
-                                                    {hw}
-                                                  </li>
-                                                ))}
-                                              </ul>
+                    {open && (
+                      <ul className={styles.submoduleList}>
+                        {module.submodules.map((sub, sIdx) => {
+                          const subOpen = expandedSubmodules[module.name]?.[sub.name];
+                          return (
+                            <li key={sIdx} className={styles.submoduleItem}>
+                              <div className={styles.submoduleHeader}>
+                                <button
+                                  className={styles.toggleButton}
+                                  onClick={() => toggleSubmodule(module.name, sub.name)}
+                                >
+                                  {subOpen ? "–" : "+"}
+                                </button>
+                                <span className={styles.submoduleName}>{sub.name}</span>
+                                <button className={styles.editButton} onClick={() => editSubmoduleName(mIdx, sIdx)}>
+                                  ✎
+                                </button>
+                              </div>
+                              {subOpen && (
+                                <>
+                                  <ul className={styles.lessonList}>
+                                    {sub.lessons.map((lesson, lIdx) => {
+                                      const lessonOpen = expandedLessons[module.name]?.[sub.name]?.[lesson.name];
+                                      const videoURL = getVideoURL(lesson.content);
+                                      const hwList = getHomeworkList(lesson.content);
+                                      return (
+                                        <li key={lIdx} className={styles.lessonItem}>
+                                          <div className={styles.lessonHeader}>
+                                            <button
+                                              className={styles.toggleButton}
+                                              onClick={() => toggleLesson(module.name, sub.name, lesson.name)}
+                                            >
+                                              {lessonOpen ? "–" : "+"}
+                                            </button>
+                                            {videoURL ? (
+                                              <a href={videoURL} target="_blank" rel="noopener noreferrer">
+                                                {lesson.name}
+                                              </a>
                                             ) : (
-                                              <p className={styles.emptyHomework}>Домашних заданий нет.</p>
+                                              <span>{lesson.name}</span>
                                             )}
                                             <button
-                                              className={styles.addSubButton}
-                                              onClick={() => addHomework(mIdx, sIdx, lIdx)}
+                                              className={styles.lessonButton}
+                                              onClick={() => uploadVideoToLesson(mIdx, sIdx, lIdx)}
                                             >
-                                              + Домашка
+                                              ⬆︎ Видео
                                             </button>
                                           </div>
-                                        )}
-                                      </li>
-                                    );
-                                  })}
-                                </ul>
-                                <button className={styles.addSubButton} onClick={() => addLesson(mIdx, sIdx)}>
-                                  + Урок
-                                </button>
-                              </>
-                            )}
-                          </li>
-                        );
-                      })}
-                      <button className={styles.addSubButton} onClick={() => addSubmodule(mIdx)}>
-                        + Подмодуль
-                      </button>
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-    </Container2>
+                                          {lessonOpen && (
+                                            <div className={styles.homeworkSection}>
+                                              {lesson.homework && hwList.length > 0 ? (
+                                                <ul className={styles.homeworkList}>
+                                                  {hwList.map((hw, hIdx) => (
+                                                    <li key={hIdx} className={styles.homeworkItem}>
+                                                      {hw}
+                                                    </li>
+                                                  ))}
+                                                </ul>
+                                              ) : (
+                                                <p className={styles.emptyHomework}>Домашних заданий нет.</p>
+                                              )}
+                                              <button
+                                                className={styles.addSubButton}
+                                                onClick={() => addHomework(mIdx, sIdx, lIdx)}
+                                              >
+                                                + Домашка
+                                              </button>
+                                            </div>
+                                          )}
+                                        </li>
+                                      );
+                                    })}
+                                  </ul>
+                                  <button className={styles.addSubButton} onClick={() => addLesson(mIdx, sIdx)}>
+                                    + Урок
+                                  </button>
+                                </>
+                              )}
+                            </li>
+                          );
+                        })}
+                        <button className={styles.addSubButton} onClick={() => addSubmodule(mIdx)}>
+                          + Подмодуль
+                        </button>
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+      </Container2>
+    </section>
   );
 }

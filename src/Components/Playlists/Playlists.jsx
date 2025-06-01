@@ -13,25 +13,27 @@ export default function Playlists() {
   ];
 
   return (
-    <section className={styles.container}>
+    <section style={{ width: '100%' }}>
       <Container>
-        <h2 className={styles.heading}>Плейлисты</h2>
-        <div className={styles.list}>
-          {playlists.map(pl => (
-            <div key={pl.id} className={styles.card}>
-              <img
-                src={pl.thumbnail}
-                alt={pl.title}
-                className={styles.thumb}
-              />
-              <div className={styles.info}>
-                <h3 className={styles.title}>{pl.title}</h3>
-                <p className={styles.count}>{pl.count} видео</p>
+        <div className={styles.container}>
+          <h2 className={styles.heading}>Плейлисты</h2>
+          <div className={styles.list}>
+            {playlists.map(pl => (
+              <div key={pl.id} className={styles.card}>
+                <img
+                  src={pl.thumbnail}
+                  alt={pl.title}
+                  className={styles.thumb}
+                />
+                <div className={styles.info}>
+                  <h3 className={styles.title}>{pl.title}</h3>
+                  <p className={styles.count}>{pl.count} видео</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </Container>
-    </section>
+    </section >
   );
 }

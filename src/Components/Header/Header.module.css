@@ -54,6 +54,7 @@
     right: 80px;
     transform: translateY(-50%);
 }
+
 [data-theme="dark"] .header__search {
     filter: brightness(0) invert(1);
 }
@@ -209,10 +210,12 @@ hr {
     display: none;
     cursor: pointer;
     width: 40px;
-    filter: brightness(0) invert(1);
     margin-right: 30px;
 }
 
+[data-theme='dark'] .header__mobileSearch {
+    filter: brightness(0) invert(1);
+}
 
 .lowOpacity {
     opacity: 0.3;

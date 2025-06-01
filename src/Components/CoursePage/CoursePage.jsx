@@ -170,7 +170,7 @@ function CoursePage() {
 
         const payload = {
             user_id: targetUserId.trim(),
-            role,                                           // ← если бекенд ждёт роль
+            role,                                           
             ...(expirationDate && {
                 expiration_date: new Date(expirationDate).toISOString()
             })
@@ -207,139 +207,141 @@ function CoursePage() {
 
     return (
         <>
-            {error && (
-                <div style={{ color: 'red' }}>
-                    <p>Ошибка: {error}</p>
-                    <details>
-                        <summary>Подробности</summary>
-                        <pre style={{ whiteSpace: 'pre-wrap' }}>{rawResponse}</pre>
-                    </details>
-                </div>
-            )}
-            {course ? (
-                <Container2>
-                    <div className={s.course__aboutAll}>
-                        <div className={s.course__mainInfo}>
-                            <h1 className={s.mainColors}>{course.name}</h1>
-                            <p className={s.mainColors}>Канал: {course.channel_id}</p>
-                            <p className={s.mainColors}>Студентов: {course.student_count}</p>
-                            <p className={s.mainColors}>Создан: {new Date(course.created_at).toLocaleString()}</p>
-                            <button
-                                style={{
-                                    marginTop: '1rem',
-                                    color: 'white',
-                                    background: 'red',
-                                    padding: '0.5rem 1rem',
-                                    border: 'none',
-                                    borderRadius: '8px'
-                                }}
-                                onClick={handleDelete}
-                            >
-                                Удалить курс
-                            </button>
-                        </div>
-
-                        <div className={s.course__previews}>
-                            <img
-                                className={s.course__preview}
-                                src={
-                                    course.preview
-                                        ? `${course.preview}?cachebuster=${Date.now()}`
-                                        : 'https://opttour.ru/wp-content/uploads/2015/07/splash.jpg'
-                                }
-                                alt="Превью курса"
-                                onClick={handlePreviewClick}
-                                style={{
-                                    cursor: 'pointer',
-                                    opacity: isUploading ? 0.5 : 1
-                                }}
-                            />
-                            <input
-                                type="file"
-                                accept="image/*"
-                                ref={fileInputRef}
-                                style={{ display: 'none' }}
-                                onChange={handleFileChange}
-                            />
-
-                            <div className={s.course__buttons}>
-                                <button onClick={() => setShowModal('senior')} className={s.modalButton}>
-                                    Назначить старшего модератора
-                                </button>
-                                <button onClick={() => setShowModal('junior')} className={s.modalButton}>
-                                    Назначить младшего модератора
-                                </button>
-                                <button onClick={() => setShowModal('student')} className={s.modalButton}>
-                                    Управление студентами
+            <section style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+                {error && (
+                    <div style={{ color: 'red' }}>
+                        <p>Ошибка: {error}</p>
+                        <details>
+                            <summary>Подробности</summary>
+                            <pre style={{ whiteSpace: 'pre-wrap' }}>{rawResponse}</pre>
+                        </details>
+                    </div>
+                )}
+                {course ? (
+                    <Container2>
+                        <div className={s.course__aboutAll}>
+                            <div className={s.course__mainInfo}>
+                                <h1 className={s.mainColors}>{course.name}</h1>
+                                <p className={s.mainColors}>Канал: {course.channel_id}</p>
+                                <p className={s.mainColors}>Студентов: {course.student_count}</p>
+                                <p className={s.mainColors}>Создан: {new Date(course.created_at).toLocaleString()}</p>
+                                <button
+                                    style={{
+                                        marginTop: '1rem',
+                                        color: 'white',
+                                        background: 'red',
+                                        padding: '0.5rem 1rem',
+                                        border: 'none',
+                                        borderRadius: '8px'
+                                    }}
+                                    onClick={handleDelete}
+                                >
+                                    Удалить курс
                                 </button>
                             </div>
+
+                            <div className={s.course__previews}>
+                                <img
+                                    className={s.course__preview}
+                                    src={
+                                        course.preview
+                                            ? `${course.preview}?cachebuster=${Date.now()}`
+                                            : 'https://opttour.ru/wp-content/uploads/2015/07/splash.jpg'
+                                    }
+                                    alt="Превью курса"
+                                    onClick={handlePreviewClick}
+                                    style={{
+                                        cursor: 'pointer',
+                                        opacity: isUploading ? 0.5 : 1
+                                    }}
+                                />
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    ref={fileInputRef}
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileChange}
+                                />
+
+                                <div className={s.course__buttons}>
+                                    <button onClick={() => setShowModal('senior')} className={s.modalButton}>
+                                        Назначить старшего модератора
+                                    </button>
+                                    <button onClick={() => setShowModal('junior')} className={s.modalButton}>
+                                        Назначить младшего модератора
+                                    </button>
+                                    <button onClick={() => setShowModal('student')} className={s.modalButton}>
+                                        Управление студентами
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    {showModal && (
-                        <div className={s.modalOverlay}>
-                            <div className={s.modal}>
-                                <h2>
-                                    {showModal === 'senior' && 'Назначить старшего модератора'}
-                                    {showModal === 'junior' && 'Назначить младшего модератора'}
-                                    {showModal === 'students' && 'Управление студентами'}
-                                </h2>
+                        {showModal && (
+                            <div className={s.modalOverlay}>
+                                <div className={s.modal}>
+                                    <h2>
+                                        {showModal === 'senior' && 'Назначить старшего модератора'}
+                                        {showModal === 'junior' && 'Назначить младшего модератора'}
+                                        {showModal === 'students' && 'Управление студентами'}
+                                    </h2>
 
-                                {(showModal === 'senior' || showModal === 'junior' || showModal === 'student') ? (
-                                    <>
-                                        {permissionStatus && <p>{permissionStatus}</p>}
+                                    {(showModal === 'senior' || showModal === 'junior' || showModal === 'student') ? (
+                                        <>
+                                            {permissionStatus && <p>{permissionStatus}</p>}
 
-                                        <input
-                                            type="text"
-                                            placeholder="Введите user_id"
-                                            value={targetUserId}
-                                            onChange={(e) => setTargetUserId(e.target.value)}
-                                            className={s.modalInput}
-                                        />
-
-                                        <div className={s.modalEXP}>
-                                            <p>Срок истечения прав:</p>
                                             <input
-                                                type="datetime-local"
-                                                value={expirationDate}
-                                                onChange={(e) => setExpirationDate(e.target.value)}
+                                                type="text"
+                                                placeholder="Введите user_id"
+                                                value={targetUserId}
+                                                onChange={(e) => setTargetUserId(e.target.value)}
                                                 className={s.modalInput}
                                             />
-                                        </div>
 
-                                        <button className={s.modalButton} onClick={handleGrantPermission}>
-                                            Назначить
-                                        </button>
-                                    </>
-                                ) : (
-                                    <p>Управление студентами пока не реализовано</p>
-                                )}
+                                            <div className={s.modalEXP}>
+                                                <p>Срок истечения прав:</p>
+                                                <input
+                                                    type="datetime-local"
+                                                    value={expirationDate}
+                                                    onChange={(e) => setExpirationDate(e.target.value)}
+                                                    className={s.modalInput}
+                                                />
+                                            </div>
 
-                                <button
-                                    onClick={() => {
-                                        setShowModal(null);
-                                        setTargetUserId('');
-                                        setExpirationDate('');
-                                        setPermissionStatus('');
-                                    }}
-                                    className={s.closeButton}
-                                >
-                                    Закрыть
-                                </button>
+                                            <button className={s.modalButton} onClick={handleGrantPermission}>
+                                                Назначить
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <p>Управление студентами пока не реализовано</p>
+                                    )}
+
+                                    <button
+                                        onClick={() => {
+                                            setShowModal(null);
+                                            setTargetUserId('');
+                                            setExpirationDate('');
+                                            setPermissionStatus('');
+                                        }}
+                                        className={s.closeButton}
+                                    >
+                                        Закрыть
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                </Container2>
-            ) : (
-                !error && <p>Загрузка...</p>
-            )}
+                    </Container2>
+                ) : (
+                    !error && <p>Загрузка...</p>
+                )}
 
-            {
-                course && (
-                    <CourseStructure channelId={course.channel_id} courseId={id} token={token} />)
+                {
+                    course && (
+                        <CourseStructure channelId={course.channel_id} courseId={id} token={token} />)
 
-            }
+                }
+            </section>
         </>
     );
 }
